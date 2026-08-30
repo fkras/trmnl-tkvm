@@ -1,0 +1,93 @@
+{
+  "updatedAt": "2026-05-09T19:11:00.252Z",
+  "location": {
+    "name": "Prishtine, Kosovo",
+    "latitude": 42.6629,
+    "longitude": 21.1655,
+    "timezone": "Europe/Belgrade"
+  },
+  "current": {
+    "temperatureC": 13.9,
+    "weatherCode": 1,
+    "weatherLabel": "Partly cloudy",
+    "weatherIcon": "partly-cloudy"
+  },
+  "todaySegments": [
+    {
+      "timeLabel": "22:00",
+      "temperatureC": 14.7,
+      "weatherCode": 2,
+      "weatherLabel": "Partly cloudy",
+      "weatherIcon": "partly-cloudy"
+    },
+    {
+      "timeLabel": "23:00",
+      "temperatureC": 13.9,
+      "weatherCode": 1,
+      "weatherLabel": "Partly cloudy",
+      "weatherIcon": "partly-cloudy"
+    },
+    {
+      "timeLabel": "00:00",
+      "temperatureC": 12.5,
+      "weatherCode": 1,
+      "weatherLabel": "Partly cloudy",
+      "weatherIcon": "partly-cloudy"
+    },
+    {
+      "timeLabel": "01:00",
+      "temperatureC": 11.9,
+      "weatherCode": 1,
+      "weatherLabel": "Partly cloudy",
+      "weatherIcon": "partly-cloudy"
+    },
+    {
+      "timeLabel": "02:00",
+      "temperatureC": 11.3,
+      "weatherCode": 1,
+      "weatherLabel": "Partly cloudy",
+      "weatherIcon": "partly-cloudy"
+    },
+    {
+      "timeLabel": "03:00",
+      "temperatureC": 11.1,
+      "weatherCode": 2,
+      "weatherLabel": "Partly cloudy",
+      "weatherIcon": "partly-cloudy"
+    }
+  ],
+  "upcomingDays": [
+    {
+      "date": "2026-05-10",
+      "dayLabel": "die",
+      "temperatureC": 21.2,
+      "weatherCode": 45,
+      "weatherLabel": "Fog",
+      "weatherIcon": "fog"
+    },
+    {
+      "date": "2026-05-11",
+      "dayLabel": "hën",
+      "temperatureC": 22.8,
+      "weatherCode": 3,
+      "weatherLabel": "Cloudy",
+      "weatherIcon": "cloudy"
+    },
+    {
+      "date": "2026-05-12",
+      "dayLabel": "mar",
+      "temperatureC": 19.4,
+      "weatherCode": 80,
+      "weatherLabel": "Rain",
+      "weatherIcon": "rain"
+    },
+    {
+      "date": "2026-05-13",
+      "dayLabel": "mër",
+      "temperatureC": 17.5,
+      "weatherCode": 95,
+      "weatherLabel": "Thunderstorm",
+      "weatherIcon": "thunder"
+    }
+  ]
+}

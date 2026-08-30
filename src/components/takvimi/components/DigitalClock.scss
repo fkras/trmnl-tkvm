@@ -1,0 +1,96 @@
+$clockColor: #e0e5eb;
+$clockActiveColor: #2c3e50;
+
+.digital-clock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  .container {
+    width: min(96%, 1080px);
+    margin: 0 auto;
+  }
+
+  #lcd-clock {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    overflow: visible;
+    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.09));
+  }
+
+  #lcd-clock .lcd-element {
+    fill: $clockColor;
+    transition: fill 0.2s ease-out;
+  }
+
+  #lcd-clock .lcd-element-active {
+    fill: $clockActiveColor;
+  }
+
+  #lcd-clock {
+    .number-is-1 .top-right,
+    .number-is-1 .bottom-right,
+    .number-is-2 .top-center,
+    .number-is-2 .top-right,
+    .number-is-2 .mid-center,
+    .number-is-2 .bottom-left,
+    .number-is-2 .bottom-center,
+    .number-is-3 .top-center,
+    .number-is-3 .top-right,
+    .number-is-3 .mid-center,
+    .number-is-3 .bottom-right,
+    .number-is-3 .bottom-center,
+    .number-is-4 .top-left,
+    .number-is-4 .top-right,
+    .number-is-4 .mid-center,
+    .number-is-4 .bottom-right,
+    .number-is-5 .top-center,
+    .number-is-5 .top-left,
+    .number-is-5 .mid-center,
+    .number-is-5 .bottom-right,
+    .number-is-5 .bottom-center,
+    .number-is-6 .top-center,
+    .number-is-6 .top-left,
+    .number-is-6 .mid-center,
+    .number-is-6 .bottom-right,
+    .number-is-6 .bottom-left,
+    .number-is-6 .bottom-center,
+    .number-is-7 .top-center,
+    .number-is-7 .top-right,
+    .number-is-7 .bottom-right,
+    .number-is-8 .top-center,
+    .number-is-8 .top-left,
+    .number-is-8 .top-right,
+    .number-is-8 .mid-center,
+    .number-is-8 .bottom-right,
+    .number-is-8 .bottom-left,
+    .number-is-8 .bottom-center,
+    .number-is-9 .top-center,
+    .number-is-9 .top-left,
+    .number-is-9 .top-right,
+    .number-is-9 .mid-center,
+    .number-is-9 .bottom-right,
+    .number-is-9 .bottom-center,
+    .number-is-0 .top-center,
+    .number-is-0 .top-left,
+    .number-is-0 .top-right,
+    .number-is-0 .bottom-right,
+    .number-is-0 .bottom-left,
+    .number-is-0 .bottom-center {
+      fill: $clockActiveColor;
+    }
+  }
+}
+
+@media (max-width: 860px) {
+  .digital-clock {
+    padding: 0.5rem 0 1.25rem;
+
+    .container {
+      width: min(99%, 1000px);
+    }
+  }
+}

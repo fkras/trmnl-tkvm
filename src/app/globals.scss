@@ -1,0 +1,19 @@
+@use "../components/takvimi/App";
+@use "../components/takvimi/components/PrayerList";
+@use "../components/takvimi/components/AnalogClock";
+@use "../components/takvimi/components/DigitalClock";
+@use "../components/takvimi/components/CountdownTimer";
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+p {
+  margin: 0;
+}

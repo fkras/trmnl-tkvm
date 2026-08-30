@@ -1,0 +1,37 @@
+$bg-color: #e0e5ec;
+$text-muted: #7f8c8d;
+$accent-color: #3498db;
+$border-color: #c5c9d1;
+
+.countdown-timer {
+  padding: 0 2rem;
+  text-align: center;
+  margin-top: 2rem;
+  background: $bg-color;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: 2rem;
+  border-top: 1px solid   $border-color;
+  /** box-shadow: 12px 12px 24px #bebebe, -12px -12px 24px #ffffff; */
+
+  .label {
+    font-size: 1.25rem; 
+    color: $text-muted;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-right: 1px solid $border-color;
+    padding-right: 2rem;
+    flex-shrink: 0;
+    height: 100px;
+  }
+
+  .countdown {
+    font-size: 8rem;
+    font-variant-numeric: tabular-nums;
+    color: $accent-color;
+    font-weight: 700;
+  }
+}

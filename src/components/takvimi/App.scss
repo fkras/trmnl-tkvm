@@ -1,0 +1,264 @@
+$bg-color: #e0e5ec;
+$text-dark: #2c3e50;
+$text-muted: #7f8c8d;
+$text-light: #95a5a6;
+$border-color: #c5c9d1;
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  background: $bg-color;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.sidebar {
+  width: 25%;
+  border-right: 1px solid $border-color;
+  position: relative;
+}
+
+.header {
+  padding: 2rem;
+  border-bottom: 1px solid $border-color;
+
+  h1 {
+    font-size: 1.875rem;
+    margin-bottom: 0.5rem;
+    color: $text-dark;
+    font-weight: 700;
+  }
+
+  .date {
+    color: $text-muted;
+  }
+
+  .hijri {
+    color: $text-light;
+    font-size: 0.9rem;
+  }
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2rem;
+  padding: 2rem 2.5rem 9rem;
+  position: relative;
+}
+
+.weather-stack {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.weather-card {
+  border-radius: 24px;
+  border: none;
+  background: $bg-color;
+  box-shadow: 10px 10px 22px #c4c9cf, -10px -10px 22px #fcffff;
+  padding: 1.25rem 1.4rem;
+  width: 100%;
+}
+
+.weather-card-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.weather-card-next-days{
+  box-shadow: none;
+  border-top: 1px solid $border-color;
+  border-radius: 0;
+    width: 100%;
+  flex: 1;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  .weather-days-grid{
+    margin: 0
+  }
+}
+.weather-temp {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #303642;
+}
+
+.weather-location {
+  margin-top: 0.35rem;
+  font-size: 1.05rem;
+  color: #626a7a;
+}
+
+.weather-updated {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #7b8293;
+}
+
+.weather-icon {
+  color: #4e5f77;
+
+  svg {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+.weather-hour-grid,
+.weather-days-grid {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.weather-hour-grid {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.weather-days-grid {
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 1rem;
+}
+
+.weather-hour-item,
+.weather-day-item {
+  border-radius: 18px;
+  background: $bg-color;
+  text-align: center;
+  padding: 0.85rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: 6px 6px 14px #c4c9cf, -6px -6px 14px #f8fbff;
+}
+
+.weather-hour-temp,
+.weather-day-temp {
+  color: #2f3644;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.weather-hour-icon,
+.weather-day-icon {
+  color: #5a667a;
+
+  svg {
+    width: 26px;
+    height: 26px;
+    stroke-width: 2;
+  }
+}
+
+.weather-day-top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.weather-day-date {
+  color: #5f6877;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.weather-hour-label,
+.weather-day-label {
+  color: #6f7788;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.weather-error {
+  font-size: 0.9rem;
+  color: #a33f44;
+  padding: 0 0.25rem;
+}
+
+.clock-toggle {
+  margin-bottom: 3rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: 9999px;
+  font-size: 1rem;
+  transition: all 0.2s;
+  background: $bg-color;
+  box-shadow: 6px 6px 12px #bebebe, -6px -6px 12px #ffffff;
+  color: $text-dark;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+
+  &:active {
+    box-shadow: inset 3px 3px 6px #bebebe, inset -3px -3px 6px #ffffff;
+  }
+
+  &:hover {
+    box-shadow: 6px 6px 12px #bebebe, -6px -6px 12px #ffffff;
+  }
+}
+
+.countdown-wrapper {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  .countdown{
+    padding: 1rem;
+    #lcd-clock{
+      height: 50px;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .app {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid $border-color;
+  }
+
+  .main-content {
+    padding: 1rem 1rem 7rem;
+  }
+
+  .weather-hour-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .weather-days-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .clock-wrapper {
+    padding: 0;
+  }
+}
+.clock-wrapper{
+  width: 100%;
+  padding: 0 10rem;
+
+}
+
+@media (max-width: 1024px) {
+  .clock-wrapper {
+    padding: 0;
+  }
+}
