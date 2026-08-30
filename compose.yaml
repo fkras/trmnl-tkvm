@@ -3,8 +3,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: trmnl-tkvm:local
-    container_name: trmnl-tkvm
     restart: unless-stopped
     environment:
       NODE_ENV: production
