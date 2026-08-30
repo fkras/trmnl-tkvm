@@ -1,9 +1,13 @@
 import { access, readFile, writeFile } from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
 import { fetchWeatherApi } from "openmeteo";
 
 const WEATHER_API_URL = "https://api.open-meteo.com/v1/forecast";
-const WEATHER_CACHE_FILE_PATH = path.join(process.cwd(), "weather-cache.json");
+const WEATHER_CACHE_FILE_PATH =
+  process.env.VERCEL
+    ? path.join(os.tmpdir(), "weather-cache.json")
+    : path.join(process.cwd(), "weather-cache.json");
 const WEATHER_CACHE_TTL_MS = 3 * 60 * 60 * 1000;
 
 const WEATHER_LOCATION = {
@@ -132,7 +136,12 @@ async function readCachedWeather(): Promise<WeatherCachePayload | null> {
 }
 
 async function writeCachedWeather(payload: WeatherCachePayload): Promise<void> {
-  await writeFile(WEATHER_CACHE_FILE_PATH, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+  try {
+    await writeFile(WEATHER_CACHE_FILE_PATH, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown weather cache write error";
+    console.warn(`Unable to write weather cache: ${message}`);
+  }
 }
 
 function isCacheFresh(updatedAt: string): boolean {
