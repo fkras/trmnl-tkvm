@@ -8,6 +8,7 @@ services:
       NODE_ENV: production
       HOSTNAME: 0.0.0.0
       PORT: 3000
+      TRMNL_WEBHOOK_URL: ${TRMNL_WEBHOOK_URL:-}
       TZ: ${TZ:-Europe/Belgrade}
     ports:
       - "${BIND_IP:-0.0.0.0}:${HOST_PORT:-3000}:3000"
@@ -30,7 +31,8 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     depends_on:
-      - takvimi
+      takvimi:
+        condition: service_healthy
     environment:
       NODE_ENV: production
       PORT: 3001
@@ -51,3 +53,19 @@ services:
       timeout: 5s
       retries: 3
       start_period: 30s
+
+  trmnl-pusher:
+    image: curlimages/curl:8.15.0
+    restart: unless-stopped
+    depends_on:
+      takvimi:
+        condition: service_healthy
+    environment:
+      TRMNL_PUSH_URL: http://takvimi:3000/api/trmnl/push
+      TRMNL_PUSH_INTERVAL: ${TRMNL_PUSH_INTERVAL:-300}
+    command:
+      [
+        "sh",
+        "-c",
+        "while true; do curl -fsS -X POST \"$${TRMNL_PUSH_URL}\" || true; sleep \"$${TRMNL_PUSH_INTERVAL}\"; done",
+      ]

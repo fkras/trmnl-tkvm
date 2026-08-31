@@ -9,14 +9,11 @@ import {
   Sun,
   Zap,
 } from "lucide-react";
-import type { WeatherResult } from "@/lib/weather";
-import type { PrayerSchedule } from "@/lib/takvimi";
+import type { TrmnlDashboardData } from "@/lib/trmnl-dashboard";
 import StaticDigitalClock from "./StaticDigitalClock";
 
 type TrmnlDashboardProps = {
-  schedule: PrayerSchedule;
-  weather: WeatherResult | null;
-  updatedAt: Date;
+  data: TrmnlDashboardData;
 };
 
 function renderWeatherIcon(icon: string) {
@@ -33,46 +30,34 @@ function renderWeatherIcon(icon: string) {
   return <Cloud {...iconProps} />;
 }
 
-function formatUpdatedAt(value: Date): string {
-  return new Intl.DateTimeFormat("sq-AL", {
-    hourCycle: "h23",
-    hour: "2-digit",
-    minute: "2-digit",
-  }).format(value);
-}
-
-export default function TrmnlDashboard({ schedule, weather, updatedAt }: TrmnlDashboardProps) {
-  const weatherData = weather?.data;
-  const currentWeather = weatherData?.current;
-  const todaySegments = weatherData?.todaySegments.slice(0, 6) ?? [];
-
+export default function TrmnlDashboard({ data }: TrmnlDashboardProps) {
   return (
     <main className="trmnl-page" data-trmnl-width="1872" data-trmnl-height="1404">
       <section className="trmnl-header">
         <div>
-          <p className="trmnl-kicker">Takvimi për Kosovë</p>
-          <h1>Gjilan</h1>
-          <p className="trmnl-date">{schedule.dateLabel}</p>
-          <p className="trmnl-hijri">{schedule.hijriLabel}</p>
+          <p className="trmnl-kicker">{data.title}</p>
+          <h1>{data.city}</h1>
+          <p className="trmnl-date">{data.gregorian_date}</p>
+          <p className="trmnl-hijri">{data.hijri_date}</p>
         </div>
         <div className="trmnl-updated">
           <span>Renderuar</span>
-          <strong>{formatUpdatedAt(updatedAt)}</strong>
+          <strong>{data.rendered_time}</strong>
         </div>
       </section>
 
       <section className="trmnl-main-grid">
         <article className="trmnl-panel trmnl-time-panel">
           <p className="trmnl-panel-label">Ora aktuale</p>
-          <StaticDigitalClock value={schedule.currentTimeLabel} />
+          <StaticDigitalClock value={data.current_time} />
           <div className="trmnl-next-prayer">
             <div>
               <p>Namazi i radhës</p>
-              <strong>{schedule.nextPrayer.name}</strong>
+              <strong>{data.next_prayer.name}</strong>
             </div>
             <div>
               <p>Pas</p>
-              <strong>{schedule.timeUntilNextPrayerLabel}</strong>
+              <strong>{data.next_prayer.time_until}</strong>
             </div>
           </div>
         </article>
@@ -82,20 +67,20 @@ export default function TrmnlDashboard({ schedule, weather, updatedAt }: TrmnlDa
             <p className="trmnl-panel-label">Moti</p>
             <div className="trmnl-weather-now">
               <div>
-                <strong>{currentWeather ? `${Math.round(currentWeather.temperatureC)}°C` : "--°C"}</strong>
-                <p>{currentWeather?.weatherLabel ?? "I padisponueshëm"}</p>
-                <span>{weatherData?.location.name ?? "Gjilan, Kosovo"}</span>
+                <strong>{typeof data.weather.temperature_c === "number" ? `${data.weather.temperature_c}°C` : "--°C"}</strong>
+                <p>{data.weather.condition}</p>
+                <span>{data.weather.location}</span>
               </div>
               <div className="trmnl-weather-icon" aria-hidden="true">
-                {renderWeatherIcon(currentWeather?.weatherIcon ?? "cloud")}
+                {renderWeatherIcon(data.weather.icon)}
               </div>
             </div>
           </div>
           <div className="trmnl-weather-hours">
-            {todaySegments.map((segment) => (
-              <div key={`${segment.timeLabel}-${segment.weatherCode}`} className="trmnl-weather-hour">
-                <strong>{Math.round(segment.temperatureC)}°C</strong>
-                <span>{segment.timeLabel}</span>
+            {data.weather.forecast.map((segment) => (
+              <div key={`${segment.time}-${segment.temperature_c}`} className="trmnl-weather-hour">
+                <strong>{segment.temperature_c}°C</strong>
+                <span>{segment.time}</span>
               </div>
             ))}
           </div>
@@ -103,20 +88,18 @@ export default function TrmnlDashboard({ schedule, weather, updatedAt }: TrmnlDa
       </section>
 
       <section className="trmnl-prayer-grid" aria-label="Kohët e namazit">
-        {schedule.prayerTimes.map((prayer, index) => {
-          const isNext = index === schedule.nextPrayerIndex;
-
+        {data.prayers.map((prayer) => {
           return (
-            <article key={prayer.name} className={`trmnl-prayer-card ${isNext ? "trmnl-prayer-card-next" : ""}`}>
+            <article key={prayer.key} className={`trmnl-prayer-card ${prayer.is_next ? "trmnl-prayer-card-next" : ""}`}>
               <p>{prayer.name}</p>
               <strong>{prayer.time}</strong>
-              {isNext ? <span>I radhës</span> : null}
+              {prayer.is_next ? <span>I radhës</span> : null}
             </article>
           );
         })}
         <article className="trmnl-prayer-card trmnl-day-length">
           <p>Gjatësia e ditës</p>
-          <strong>{schedule.dayLengthLabel}</strong>
+          <strong>{data.day_length}</strong>
         </article>
       </section>
     </main>

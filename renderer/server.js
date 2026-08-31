@@ -86,11 +86,17 @@ async function getScreenPng() {
   return renderPromise;
 }
 
+async function refreshScreenPng() {
+  cachedPng = null;
+  cachedAt = 0;
+  return getScreenPng();
+}
+
 function requestHandler(request, response) {
   const url = new URL(request.url ?? "/", `http://${request.headers.host ?? "localhost"}`);
 
   if (request.method === "GET" && url.pathname === "/health") {
-    sendJson(response, 200, { ok: true });
+    sendJson(response, 200, { ok: true, renderer: true });
     return;
   }
 
@@ -108,6 +114,23 @@ function requestHandler(request, response) {
         const message = error instanceof Error ? error.message : "Unknown render error";
         console.error(`TRMNL render failed: ${message}`);
         sendJson(response, 502, { ok: false, error: "Unable to render screen.png" });
+      });
+    return;
+  }
+
+  if (request.method === "POST" && url.pathname === "/refresh") {
+    refreshScreenPng()
+      .then((png) => {
+        sendJson(response, 200, {
+          ok: true,
+          generatedAt: new Date(cachedAt).toISOString(),
+          bytes: png.length,
+        });
+      })
+      .catch((error) => {
+        const message = error instanceof Error ? error.message : "Unknown refresh error";
+        console.error(`TRMNL refresh failed: ${message}`);
+        sendJson(response, 502, { ok: false, error: "Unable to refresh screen.png" });
       });
     return;
   }

@@ -51,6 +51,70 @@ curl -o screen.png http://localhost:3101/screen.png
 
 In Portainer, redeploy the existing stack from this repository so both `takvimi` and `renderer` services are built. nginx is not part of this repository. If you later want `https://trmnl.fkras.com/screen.png` to expose the renderer, add a reverse-proxy location for `/screen.png` to the renderer host port or container upstream.
 
+## TRMNL Private Plugin
+
+TRMNL Private Plugin support uses the Webhook strategy. The Next.js service gathers the same dashboard data used by `/trmnl` and pushes it to TRMNL as:
+
+```json
+{
+  "merge_variables": {
+    "city": "Gjilan"
+  }
+}
+```
+
+The full dashboard payload includes dates, current time, next prayer, prayer times, day length, Albanian weather labels, and forecast values. The real webhook URL is a secret and must be supplied only through `TRMNL_WEBHOOK_URL`.
+
+Portainer environment:
+
+- `TRMNL_WEBHOOK_URL`: generated TRMNL Private Plugin Webhook URL. Keep this secret.
+- `TRMNL_PUSH_INTERVAL`: automatic push interval in seconds, default `300`.
+- `RENDERER_HOST_PORT`: renderer host port, default `3101`.
+- `TRMNL_CACHE_TTL_MS`: renderer PNG cache lifetime in milliseconds, default `60000`.
+
+Private Plugin setup:
+
+1. In TRMNL, create a Private Plugin.
+2. Select the Webhook strategy.
+3. Save the plugin.
+4. Copy the generated Webhook URL.
+5. Set `TRMNL_WEBHOOK_URL` in Portainer.
+6. Redeploy the stack.
+7. Paste `trmnl/plugin-markup.html` into Private Plugin > Edit Markup.
+8. Call `POST /api/trmnl/push` once.
+9. Verify variables appear in the TRMNL markup editor.
+10. Add the Private Plugin to the TRMNL X playlist.
+
+Manual push:
+
+```bash
+curl -X POST http://localhost:3000/api/trmnl/push
+```
+
+Successful response:
+
+```json
+{
+  "ok": true,
+  "pushedAt": "2026-08-31T10:00:00.000Z",
+  "status": 200,
+  "prayerCount": 6,
+  "forecastCount": 6
+}
+```
+
+If `TRMNL_WEBHOOK_URL` is missing, the endpoint returns `503` and does not expose a webhook URL.
+
+Automatic pushes are handled by the `trmnl-pusher` Compose service. It calls `POST http://takvimi:3000/api/trmnl/push` inside the Docker network every `TRMNL_PUSH_INTERVAL` seconds, so it does not use nginx or public DNS. The default 5-minute interval matches the default TRMNL Private Plugin Webhook limit of 12 requests per hour.
+
+Renderer manual refresh:
+
+```bash
+curl -X POST http://localhost:3101/refresh
+```
+
+This invalidates the renderer's in-memory PNG cache and regenerates `/screen.png` from `http://takvimi:3000/trmnl`.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
