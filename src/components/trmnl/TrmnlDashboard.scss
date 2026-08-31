@@ -1,0 +1,278 @@
+.trmnl-page {
+  width: 1872px;
+  height: 1404px;
+  overflow: hidden;
+  background: #ffffff;
+  color: #000000;
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  padding: 64px;
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  letter-spacing: 0;
+
+  *,
+  *::before,
+  *::after {
+    animation: none;
+    transition: none;
+  }
+}
+
+.trmnl-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-bottom: 8px solid #000000;
+  padding-bottom: 28px;
+
+  h1 {
+    margin: 0;
+    font-size: 112px;
+    line-height: 0.92;
+    font-weight: 850;
+    letter-spacing: 0;
+  }
+}
+
+.trmnl-kicker,
+.trmnl-panel-label {
+  margin: 0 0 18px;
+  color: #444444;
+  font-size: 34px;
+  line-height: 1.1;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.trmnl-date,
+.trmnl-hijri {
+  margin: 16px 0 0;
+  font-size: 38px;
+  line-height: 1.18;
+  color: #000000;
+  font-weight: 650;
+}
+
+.trmnl-hijri {
+  color: #444444;
+  margin-top: 10px;
+}
+
+.trmnl-updated {
+  min-width: 270px;
+  border: 5px solid #000000;
+  padding: 24px 28px;
+  text-align: right;
+
+  span {
+    display: block;
+    color: #444444;
+    font-size: 30px;
+    font-weight: 650;
+  }
+
+  strong {
+    display: block;
+    margin-top: 6px;
+    color: #000000;
+    font-size: 64px;
+    line-height: 1;
+  }
+}
+
+.trmnl-main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.34fr) minmax(0, 0.66fr);
+  gap: 44px;
+  height: 590px;
+  min-height: 590px;
+}
+
+.trmnl-panel {
+  border: 6px solid #000000;
+  background: #ffffff;
+  padding: 36px;
+  overflow: hidden;
+}
+
+.trmnl-time-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.trmnl-digital-clock {
+  width: 100%;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 240px;
+  }
+}
+
+.trmnl-lcd-segment {
+  fill: #ffffff;
+}
+
+.trmnl-lcd-segment-active {
+  fill: #000000;
+}
+
+.trmnl-next-prayer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 26px;
+
+  div {
+    border: 5px solid #000000;
+    padding: 24px 28px;
+    min-height: 132px;
+  }
+
+  p {
+    margin: 0;
+    color: #444444;
+    font-size: 32px;
+    line-height: 1.1;
+    font-weight: 650;
+  }
+
+  strong {
+    display: block;
+    margin-top: 12px;
+    color: #000000;
+    font-size: 56px;
+    line-height: 1;
+    font-weight: 850;
+  }
+}
+
+.trmnl-weather-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.trmnl-weather-now {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+
+  strong {
+    display: block;
+    color: #000000;
+    font-size: 92px;
+    line-height: 0.94;
+    font-weight: 850;
+  }
+
+  p {
+    margin: 18px 0 0;
+    color: #000000;
+    font-size: 36px;
+    line-height: 1.12;
+    font-weight: 700;
+  }
+
+  span {
+    display: block;
+    margin-top: 12px;
+    color: #444444;
+    font-size: 28px;
+    line-height: 1.15;
+    font-weight: 650;
+  }
+}
+
+.trmnl-weather-icon {
+  color: #000000;
+  flex: 0 0 auto;
+}
+
+.trmnl-weather-hours {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.trmnl-weather-hour {
+  border: 4px solid #444444;
+  padding: 14px 10px;
+  text-align: center;
+
+  strong {
+    display: block;
+    color: #000000;
+    font-size: 34px;
+    line-height: 1;
+  }
+
+  span {
+    display: block;
+    margin-top: 10px;
+    color: #444444;
+    font-size: 24px;
+    font-weight: 650;
+  }
+}
+
+.trmnl-prayer-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 22px;
+  height: 272px;
+  min-height: 272px;
+}
+
+.trmnl-prayer-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 5px solid #444444;
+  background: #ffffff;
+  padding: 28px 22px;
+  min-width: 0;
+
+  p {
+    margin: 0;
+    color: #444444;
+    font-size: 28px;
+    line-height: 1.12;
+    font-weight: 750;
+  }
+
+  strong {
+    display: block;
+    color: #000000;
+    font-size: 58px;
+    line-height: 1;
+    font-weight: 850;
+  }
+
+  span {
+    display: inline-block;
+    align-self: flex-start;
+    border: 4px solid #000000;
+    color: #000000;
+    padding: 8px 12px;
+    font-size: 22px;
+    line-height: 1;
+    font-weight: 800;
+  }
+}
+
+.trmnl-prayer-card-next {
+  border-color: #000000;
+  border-width: 8px;
+  background: #eeeeee;
+}
+
+.trmnl-day-length {
+  border-style: double;
+}

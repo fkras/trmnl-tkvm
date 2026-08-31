@@ -23,3 +23,31 @@ services:
       timeout: 5s
       retries: 3
       start_period: 30s
+
+  renderer:
+    build:
+      context: ./renderer
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - takvimi
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      TARGET_URL: ${TRMNL_TARGET_URL:-http://takvimi:3000/trmnl}
+      CACHE_TTL_MS: ${TRMNL_CACHE_TTL_MS:-60000}
+      TZ: ${TZ:-Europe/Belgrade}
+    ports:
+      - "${BIND_IP:-0.0.0.0}:${RENDERER_HOST_PORT:-3101}:3001"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3001/health').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s

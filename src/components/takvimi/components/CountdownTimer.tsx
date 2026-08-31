@@ -14,18 +14,19 @@ type CountdownTimerProps = {
 export default function CountdownTimer({ prayers, initialCurrentPrayerIndex }: CountdownTimerProps) {
   const [countdown, setCountdown] = useState("");
  const [currentPrayerIndex, setCurrentPrayerIndex] = useState(initialCurrentPrayerIndex);
+  const prayerTimes = useMemo(() => prayers.slice(0, 6), [prayers]);
 
   useEffect(() => {
     const updateCurrentPrayer = () => {
       const now = new Date();
       const currentTime = now.getHours() * 60 + now.getMinutes();
 
-      for (let i = prayers.length - 1; i >= 0; i -= 1) {
-        const [hours, minutes] = prayers[i].time.split(":").map(Number);
+      for (let i = prayerTimes.length - 1; i >= 0; i -= 1) {
+        const [hours, minutes] = prayerTimes[i].time.split(":").map(Number);
         const prayerTime = hours * 60 + minutes;
 
         if (currentTime >= prayerTime) {
-          setCurrentPrayerIndex((i + 1) % prayers.length);
+          setCurrentPrayerIndex((i + 1) % prayerTimes.length);
           return;
         }
       }
@@ -36,9 +37,9 @@ export default function CountdownTimer({ prayers, initialCurrentPrayerIndex }: C
     updateCurrentPrayer();
     const interval = setInterval(updateCurrentPrayer, 60000);
     return () => clearInterval(interval);
-  }, [prayers]);
+  }, [prayerTimes]);
 
-  const nextPrayer = useMemo(() => prayers[currentPrayerIndex], [prayers, currentPrayerIndex]);
+  const nextPrayer = useMemo(() => prayerTimes[currentPrayerIndex] ?? prayerTimes[0], [prayerTimes, currentPrayerIndex]);
 
   useEffect(() => {
     const calculateCountdown = () => {

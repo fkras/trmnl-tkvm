@@ -20,6 +20,37 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## TRMNL X
+
+The normal website stays available at `/`. A dedicated e-ink view is available at `/trmnl` and renders a fixed 1872 x 1404 layout for TRMNL X.
+
+Docker Compose includes a separate `renderer` service that uses Playwright Chromium to capture `http://takvimi:3000/trmnl` inside the Compose network. The renderer exposes:
+
+- `GET /screen.png` on port `3001` in the container, mapped to host port `3101` by default.
+- `GET /health` for Portainer and container health checks.
+
+Relevant Compose environment variables:
+
+- `HOST_PORT`: host port for the Next.js `takvimi` service, default `3000`.
+- `RENDERER_HOST_PORT`: host port for the renderer service, default `3101`.
+- `TRMNL_TARGET_URL`: internal page URL for Playwright, default `http://takvimi:3000/trmnl`.
+- `TRMNL_CACHE_TTL_MS`: short PNG cache lifetime, default `60000`.
+- `TZ`: timezone used by both services, default `Europe/Belgrade`.
+
+Local checks:
+
+```bash
+npm run lint
+npm run build
+docker compose up -d --build
+curl http://localhost:3000/
+curl http://localhost:3000/trmnl
+curl http://localhost:3101/health
+curl -o screen.png http://localhost:3101/screen.png
+```
+
+In Portainer, redeploy the existing stack from this repository so both `takvimi` and `renderer` services are built. nginx is not part of this repository. If you later want `https://trmnl.fkras.com/screen.png` to expose the renderer, add a reverse-proxy location for `/screen.png` to the renderer host port or container upstream.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

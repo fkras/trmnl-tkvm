@@ -311,11 +311,25 @@ export async function getWeatherData(): Promise<WeatherResult> {
     };
   }
 
-  const freshData = await fetchOpenMeteoWeather();
-  await writeCachedWeather(freshData);
+  try {
+    const freshData = await fetchOpenMeteoWeather();
+    await writeCachedWeather(freshData);
 
-  return {
-    source: "open-meteo",
-    data: freshData,
-  };
+    return {
+      source: "open-meteo",
+      data: freshData,
+    };
+  } catch (error) {
+    if (cached) {
+      const message = error instanceof Error ? error.message : "Unknown weather refresh error";
+      console.warn(`Using stale weather cache after refresh failure: ${message}`);
+
+      return {
+        source: "cache",
+        data: cached,
+      };
+    }
+
+    throw error;
+  }
 }
