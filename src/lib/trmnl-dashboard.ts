@@ -16,6 +16,13 @@ export type TrmnlWeatherForecastItem = {
   icon: string;
 };
 
+export type TrmnlWeatherDayItem = {
+  day: string;
+  temperature_c: number;
+  condition: string;
+  icon: string;
+};
+
 export type TrmnlDashboardData = {
   city: string;
   title: string;
@@ -38,6 +45,7 @@ export type TrmnlDashboardData = {
     icon: string;
     updated_time: string;
     forecast: TrmnlWeatherForecastItem[];
+    upcoming_days: TrmnlWeatherDayItem[];
   };
 };
 
@@ -112,6 +120,13 @@ export async function getTrmnlDashboardData(now = new Date()): Promise<TrmnlDash
           temperature_c: Math.round(segment.temperatureC),
           condition: toAlbanianWeatherLabel(segment.weatherLabel),
           icon: segment.weatherIcon,
+        })) ?? [],
+      upcoming_days:
+        weather?.upcomingDays.slice(0, 4).map((day) => ({
+          day: day.dayLabel,
+          temperature_c: Math.round(day.temperatureC),
+          condition: toAlbanianWeatherLabel(day.weatherLabel),
+          icon: day.weatherIcon,
         })) ?? [],
     },
   };

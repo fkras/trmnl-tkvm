@@ -1,324 +1,474 @@
 <style>
-  .takvimi-screen {
-    width: 1872px;
-    height: 1404px;
-    overflow: hidden;
-    background: #ffffff;
-    color: #000000;
-    font-family: Arial, Helvetica, sans-serif;
-    padding: 64px;
-    box-sizing: border-box;
-  }
-
+  .layout.takvimi-layout,
+  .layout.takvimi-layout > .takvimi-screen,
   .takvimi-screen * {
     box-sizing: border-box;
+    min-width: 0;
+  }
+
+  .layout.takvimi-layout {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    display: block;
+    align-self: stretch;
+    justify-self: stretch;
+    overflow: hidden;
+  }
+
+  .takvimi-screen {
+    width: 100%;
+    height: 100%;
+    inline-size: 100%;
+    block-size: 100%;
+    min-height: 0;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: 23% 27% 17% minmax(0, 1fr);
+    gap: 10px;
+    padding: 12px;
+    background: #fff;
+    color: #000;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 8px;
   }
 
   .takvimi-header {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 8px solid #000000;
-    padding-bottom: 28px;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid #000;
+    overflow: hidden;
   }
 
   .takvimi-kicker {
-    margin: 0 0 18px;
-    color: #444444;
-    font-size: 34px;
-    line-height: 1.1;
+    margin: 0 0 5px;
+    color: #444;
+    font-size: 15px;
+    line-height: 1;
     font-weight: 800;
     text-transform: uppercase;
   }
 
   .takvimi-city {
     margin: 0;
-    font-size: 112px;
-    line-height: 0.92;
+    font-size: 52px;
+    line-height: 0.9;
     font-weight: 900;
   }
 
   .takvimi-date,
   .takvimi-hijri {
-    margin: 16px 0 0;
-    font-size: 38px;
-    line-height: 1.18;
+    margin: 4px 0 0;
+    font-size: 16px;
+    line-height: 1.12;
     font-weight: 700;
   }
 
-  .takvimi-hijri {
-    color: #444444;
-    margin-top: 10px;
-  }
-
   .takvimi-rendered {
-    min-width: 270px;
-    border: 5px solid #000000;
-    padding: 24px 28px;
+    align-self: start;
+    min-width: 105px;
+    padding: 8px 10px;
+    border: 3px solid #000;
+    border-radius: 8px;
+    background: #fafafa;
+    box-shadow: 4px 4px 0 #777;
     text-align: right;
-    align-self: flex-start;
   }
 
   .takvimi-rendered span {
     display: block;
-    color: #444444;
-    font-size: 30px;
-    font-weight: 700;
+    color: #444;
+    font-size: 12px;
+    line-height: 1;
+    font-weight: 800;
+    text-transform: uppercase;
   }
 
   .takvimi-rendered strong {
     display: block;
-    margin-top: 6px;
-    font-size: 64px;
+    margin-top: 3px;
+    font-size: 30px;
     line-height: 1;
     font-weight: 900;
   }
 
   .takvimi-main {
+    min-height: 0;
     display: grid;
-    grid-template-columns: minmax(0, 1.34fr) minmax(0, 0.66fr);
-    gap: 44px;
-    height: 590px;
-    margin-top: 34px;
-  }
-
-  .takvimi-panel {
-    border: 6px solid #000000;
-    padding: 36px;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 8px;
     overflow: hidden;
   }
 
+  .takvimi-panel {
+    min-height: 0;
+    padding: 10px;
+    border: 3px solid #000;
+    border-radius: 8px;
+    background: #fafafa;
+    box-shadow: 4px 4px 0 #777;
+    overflow: hidden;
+  }
+
+  .takvimi-clock-panel,
+  .takvimi-next-panel {
+    display: flex;
+    flex-direction: column;
+  }
+
   .takvimi-label {
-    margin: 0 0 18px;
-    color: #444444;
-    font-size: 34px;
-    line-height: 1.1;
+    margin: 0 0 6px;
+    color: #444;
+    font-size: 14px;
+    line-height: 1;
     font-weight: 800;
     text-transform: uppercase;
   }
 
   .takvimi-clock {
-    margin: 20px 0 28px;
-    text-align: center;
-    font-size: 244px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Arial Black", Arial, Helvetica, sans-serif;
+    font-size: 66px;
+    line-height: 0.95;
+    font-weight: 900;
+  }
+
+  .takvimi-next-name {
+    display: block;
+    margin-top: 3px;
+    font-size: 34px;
     line-height: 1;
     font-weight: 900;
-    font-family: "Arial Black", Arial, Helvetica, sans-serif;
-    letter-spacing: 0;
   }
 
-  .takvimi-next {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 28px;
-  }
-
-  .takvimi-next-box {
-    border: 5px solid #000000;
-    min-height: 132px;
-    padding: 24px 28px;
-  }
-
-  .takvimi-next-box p {
-    margin: 0;
-    color: #444444;
-    font-size: 32px;
-    line-height: 1.1;
-    font-weight: 700;
-  }
-
-  .takvimi-next-box strong {
+  .takvimi-next-time {
     display: block;
-    margin-top: 12px;
-    font-size: 56px;
+    margin-top: 4px;
+    color: #444;
+    font-size: 21px;
+    line-height: 1;
+    font-weight: 800;
+  }
+
+  .takvimi-countdown {
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 2px solid #444;
+    color: #444;
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 800;
+  }
+
+  .takvimi-countdown strong {
+    color: #000;
+    font-size: 32px;
     line-height: 1;
     font-weight: 900;
   }
 
   .takvimi-weather {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 0.35fr) minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: 8px;
   }
 
   .takvimi-weather-now {
     display: flex;
-    justify-content: space-between;
-    gap: 24px;
+    align-items: center;
+    gap: 8px;
+    overflow: hidden;
   }
 
   .takvimi-temp {
-    display: block;
-    font-size: 92px;
-    line-height: 0.94;
+    white-space: nowrap;
+    font-size: 36px;
+    line-height: 1;
     font-weight: 900;
   }
 
   .takvimi-condition {
-    margin: 18px 0 0;
-    font-size: 36px;
-    line-height: 1.12;
+    overflow: hidden;
+    color: #444;
+    font-size: 18px;
+    line-height: 1.05;
     font-weight: 800;
   }
 
   .takvimi-location {
     display: block;
-    margin-top: 12px;
-    color: #444444;
-    font-size: 28px;
-    line-height: 1.15;
-    font-weight: 700;
-  }
-
-  .takvimi-weather-mark {
-    flex: 0 0 auto;
-    font-size: 96px;
+    margin-top: 2px;
+    color: #000;
+    font-size: 12px;
     line-height: 1;
+    font-weight: 700;
   }
 
   .takvimi-forecast {
+    min-height: 0;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 14px;
+    gap: 5px;
+  }
+
+  .takvimi-forecast--today {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .takvimi-forecast--days {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .takvimi-forecast-group {
+    min-height: 0;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 4px;
+    overflow: hidden;
+  }
+
+  .takvimi-forecast-title {
+    margin: 0;
+    color: #444;
+    font-size: 10px;
+    line-height: 1;
+    font-weight: 900;
+    text-transform: uppercase;
   }
 
   .takvimi-forecast-item {
-    border: 4px solid #444444;
-    padding: 14px 10px;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    padding: 4px 3px;
+    border: 2px solid #444;
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 2px 2px 0 #aaa;
     text-align: center;
+    overflow: hidden;
   }
 
+  .takvimi-forecast-item span,
   .takvimi-forecast-item strong {
     display: block;
-    font-size: 34px;
-    line-height: 1;
   }
 
   .takvimi-forecast-item span {
+    color: #444;
+    font-size: 11px;
+    line-height: 1;
+    font-weight: 800;
+  }
+
+  .takvimi-forecast-item strong {
+    font-size: 17px;
+    line-height: 1;
+    font-weight: 900;
+  }
+
+  .takvimi-forecast-item em {
     display: block;
-    margin-top: 10px;
-    color: #444444;
-    font-size: 24px;
+    overflow: hidden;
+    color: #444;
+    font-size: 9px;
+    line-height: 1;
+    font-style: normal;
     font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .takvimi-prayer-section {
+    min-height: 0;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 6px;
+    overflow: hidden;
   }
 
   .takvimi-prayers {
+    min-height: 0;
     display: grid;
-    grid-template-columns: repeat(7, minmax(0, 1fr));
-    gap: 22px;
-    height: 272px;
-    margin-top: 34px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    overflow: hidden;
   }
 
   .takvimi-prayer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: 5px solid #444444;
-    padding: 28px 22px;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto minmax(0, 1fr);
+    align-items: end;
+    gap: 4px 6px;
+    padding: 7px 8px;
+    border: 2px solid #444;
+    border-radius: 7px;
+    background: #fff;
+    box-shadow: 3px 3px 0 #aaa;
+    overflow: hidden;
   }
 
   .takvimi-prayer.is-next {
-    border: 8px solid #000000;
-    background: #eeeeee;
+    border: 3px solid #000;
+    background: #eee;
   }
 
   .takvimi-prayer p {
+    grid-column: 1 / -1;
     margin: 0;
-    color: #444444;
-    font-size: 28px;
-    line-height: 1.12;
+    overflow: hidden;
+    color: #444;
+    font-size: 14px;
+    line-height: 1.05;
     font-weight: 800;
   }
 
   .takvimi-prayer strong {
     display: block;
-    font-size: 58px;
+    font-size: 28px;
     line-height: 1;
     font-weight: 900;
   }
 
   .takvimi-pill {
-    display: inline-block;
-    align-self: flex-start;
-    border: 4px solid #000000;
-    padding: 8px 12px;
-    font-size: 22px;
+    align-self: end;
+    justify-self: end;
+    padding: 2px 4px;
+    border: 2px solid #000;
+    border-radius: 4px;
+    font-size: 10px;
     line-height: 1;
     font-weight: 900;
+    text-transform: uppercase;
+    white-space: nowrap;
   }
 
   .takvimi-day-length {
-    border-style: double;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding-top: 5px;
+    border-top: 3px solid #000;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 800;
+  }
+
+  .takvimi-day-length span {
+    color: #444;
+    text-transform: uppercase;
+  }
+
+  .takvimi-day-length strong {
+    font-size: 24px;
+    line-height: 1;
+    font-weight: 900;
+    white-space: nowrap;
   }
 </style>
 
-<div class="takvimi-screen">
-  <div class="takvimi-header">
-    <div>
-      <p class="takvimi-kicker">{{ title }}</p>
-      <h1 class="takvimi-city">{{ city }}</h1>
-      <p class="takvimi-date">{{ gregorian_date }}</p>
-      <p class="takvimi-hijri">{{ hijri_date }}</p>
-    </div>
-    <div class="takvimi-rendered">
-      <span>Renderuar</span>
-      <strong>{{ rendered_time }}</strong>
-    </div>
-  </div>
-
-  <div class="takvimi-main">
-    <div class="takvimi-panel">
-      <p class="takvimi-label">Ora aktuale</p>
-      <div class="takvimi-clock">{{ current_time }}</div>
-      <div class="takvimi-next">
-        <div class="takvimi-next-box">
-          <p>Namazi i radhës</p>
-          <strong>{{ next_prayer.name }}</strong>
-        </div>
-        <div class="takvimi-next-box">
-          <p>Pas</p>
-          <strong>{{ next_prayer.time_until }}</strong>
-        </div>
-      </div>
-    </div>
-
-    <div class="takvimi-panel takvimi-weather">
+<div class="layout takvimi-layout">
+  <div class="takvimi-screen">
+    <section class="takvimi-header">
       <div>
-        <p class="takvimi-label">Moti</p>
-        <div class="takvimi-weather-now">
-          <div>
-            <strong class="takvimi-temp">{% if weather.temperature_c == nil %}--{% else %}{{ weather.temperature_c }}{% endif %}°C</strong>
-            <p class="takvimi-condition">{{ weather.condition }}</p>
-            <span class="takvimi-location">{{ weather.location }}</span>
-          </div>
-          <div class="takvimi-weather-mark">☼</div>
+        <p class="takvimi-kicker">{{ title }}</p>
+        <h1 class="takvimi-city">{{ city }}</h1>
+        <p class="takvimi-date">{{ gregorian_date }}</p>
+        <p class="takvimi-hijri">{{ hijri_date }}</p>
+      </div>
+
+      <div class="takvimi-rendered">
+        <span>Ora</span>
+        <strong>{{ rendered_time }}</strong>
+      </div>
+    </section>
+
+    <section class="takvimi-main">
+      <article class="takvimi-panel takvimi-clock-panel">
+        <p class="takvimi-label">Ora aktuale</p>
+        <div class="takvimi-clock">{{ current_time }}</div>
+      </article>
+
+      <article class="takvimi-panel takvimi-next-panel">
+        <p class="takvimi-label">Namazi i radhës</p>
+        <strong class="takvimi-next-name">{{ next_prayer.name }}</strong>
+        <span class="takvimi-next-time">{{ next_prayer.time }}</span>
+        <div class="takvimi-countdown">
+          pas <strong>{{ next_prayer.time_until }}</strong>
+        </div>
+      </article>
+    </section>
+
+    <section class="takvimi-panel takvimi-weather">
+      <div class="takvimi-weather-now">
+        <strong class="takvimi-temp">{% if weather.temperature_c == nil %}--{% else %}{{ weather.temperature_c }}{% endif %}°C</strong>
+        <span class="takvimi-condition">
+          {{ weather.condition }}
+          <span class="takvimi-location">{{ weather.location }}</span>
+        </span>
+      </div>
+
+      <div class="takvimi-forecast-group">
+        <p class="takvimi-forecast-title">Sot</p>
+        <div class="takvimi-forecast takvimi-forecast--today">
+          {% for item in weather.forecast limit:6 %}
+            <div class="takvimi-forecast-item">
+              <span>{{ item.time }}</span>
+              <strong>{% if item.temperature_c == nil %}--{% else %}{{ item.temperature_c }}{% endif %}°</strong>
+              <em>{{ item.condition }}</em>
+            </div>
+          {% endfor %}
         </div>
       </div>
 
-      <div class="takvimi-forecast">
-        {% for item in weather.forecast %}
-          <div class="takvimi-forecast-item">
-            <strong>{{ item.temperature_c }}°C</strong>
-            <span>{{ item.time }}</span>
-          </div>
+      <div class="takvimi-forecast-group">
+        <p class="takvimi-forecast-title">Ditët në vijim</p>
+        <div class="takvimi-forecast takvimi-forecast--days">
+          {% for item in weather.upcoming_days limit:4 %}
+            <div class="takvimi-forecast-item">
+              <span>{{ item.day }}</span>
+              <strong>{% if item.temperature_c == nil %}--{% else %}{{ item.temperature_c }}{% endif %}°</strong>
+              <em>{{ item.condition }}</em>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <section class="takvimi-prayer-section">
+      <div class="takvimi-prayers">
+        {% for prayer in prayers limit:6 %}
+          <article class="takvimi-prayer {% if prayer.is_next %}is-next{% endif %}">
+            <p>{{ prayer.name }}</p>
+            <strong>{{ prayer.time }}</strong>
+            {% if prayer.is_next %}
+              <span class="takvimi-pill">radhës</span>
+            {% endif %}
+          </article>
         {% endfor %}
       </div>
-    </div>
-  </div>
 
-  <div class="takvimi-prayers">
-    {% for prayer in prayers %}
-      <div class="takvimi-prayer {% if prayer.is_next %}is-next{% endif %}">
-        <p>{{ prayer.name }}</p>
-        <strong>{{ prayer.time }}</strong>
-        {% if prayer.is_next %}
-          <span class="takvimi-pill">I radhës</span>
-        {% endif %}
+      <div class="takvimi-day-length">
+        <span>Gjatësia e ditës</span>
+        <strong>{{ day_length }}</strong>
       </div>
-    {% endfor %}
-    <div class="takvimi-prayer takvimi-day-length">
-      <p>Gjatësia e ditës</p>
-      <strong>{{ day_length }}</strong>
-    </div>
+    </section>
   </div>
 </div>
