@@ -28,7 +28,7 @@
     min-height: 0;
     overflow: hidden;
     display: grid;
-    grid-template-rows: 23% 27% 17% minmax(0, 1fr);
+    grid-template-rows: 22% 42% 17% minmax(0, 1fr);
     gap: 10px;
     padding: 12px;
     background: #fff;
@@ -102,7 +102,7 @@
   .takvimi-main {
     min-height: 0;
     display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 1.1fr) minmax(0, 0.78fr);
     gap: 8px;
     overflow: hidden;
   }
@@ -117,8 +117,9 @@
     overflow: hidden;
   }
 
-  .takvimi-clock-panel,
-  .takvimi-next-panel {
+  .takvimi-downloads-panel,
+  .takvimi-media-panel,
+  .takvimi-prayer-times-panel {
     display: flex;
     flex-direction: column;
   }
@@ -132,56 +133,185 @@
     text-transform: uppercase;
   }
 
-  .takvimi-clock {
-    flex: 1;
+  .takvimi-panel-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .takvimi-panel-head .takvimi-label {
+    margin: 0;
+  }
+
+  .takvimi-panel-meta {
+    color: #444;
+    font-size: 11px;
+    line-height: 1;
+    font-weight: 800;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .takvimi-download-speeds {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px;
+    margin-bottom: 6px;
+  }
+
+  .takvimi-speed {
+    padding: 5px 6px;
+    border: 2px solid #444;
+    border-radius: 5px;
+    background: #fff;
+  }
+
+  .takvimi-speed span,
+  .takvimi-speed strong {
+    display: block;
+  }
+
+  .takvimi-speed span {
+    color: #444;
+    font-size: 10px;
+    line-height: 1;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .takvimi-speed strong {
+    margin-top: 2px;
+    overflow: hidden;
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 900;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .takvimi-feed-list {
+    min-height: 0;
+    display: grid;
+    gap: 5px;
+    overflow: hidden;
+  }
+
+  .takvimi-feed-item {
+    min-height: 0;
+    padding: 5px 6px;
+    border: 2px solid #444;
+    border-radius: 5px;
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .takvimi-feed-title {
+    margin: 0;
+    overflow: hidden;
+    color: #000;
+    font-size: 13px;
+    line-height: 1.05;
+    font-weight: 900;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .takvimi-feed-subtitle,
+  .takvimi-feed-extra {
+    display: block;
+    overflow: hidden;
+    color: #444;
+    font-size: 10px;
+    line-height: 1.1;
+    font-weight: 800;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .takvimi-feed-subtitle {
+    margin-top: 2px;
+  }
+
+  .takvimi-feed-extra {
+    margin-top: 3px;
+    text-transform: uppercase;
+  }
+
+  .takvimi-empty {
+    min-height: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: "Arial Black", Arial, Helvetica, sans-serif;
-    font-size: 66px;
-    line-height: 0.95;
-    font-weight: 900;
-  }
-
-  .takvimi-next-name {
-    display: block;
-    margin-top: 3px;
-    font-size: 34px;
-    line-height: 1;
-    font-weight: 900;
-  }
-
-  .takvimi-next-time {
-    display: block;
-    margin-top: 4px;
+    flex: 1;
+    padding: 10px;
+    border: 2px dashed #777;
+    border-radius: 6px;
     color: #444;
-    font-size: 21px;
-    line-height: 1;
+    font-size: 13px;
+    line-height: 1.1;
     font-weight: 800;
+    text-align: center;
   }
 
-  .takvimi-countdown {
-    margin-top: auto;
-    padding-top: 8px;
-    border-top: 2px solid #444;
-    color: #444;
-    font-size: 16px;
-    line-height: 1;
-    font-weight: 800;
-  }
-
-  .takvimi-countdown strong {
-    color: #000;
-    font-size: 32px;
-    line-height: 1;
-    font-weight: 900;
-  }
-
-  .takvimi-weather {
+  .takvimi-prayer-times-list {
     min-height: 0;
     display: grid;
-    grid-template-columns: minmax(0, 0.35fr) minmax(0, 1.35fr) minmax(0, 1fr);
+    grid-template-rows: repeat(6, minmax(0, 1fr));
+    gap: 4px;
+    overflow: hidden;
+  }
+
+  .takvimi-prayer-time-row {
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
     gap: 8px;
+    padding: 4px 7px;
+    border: 2px solid #444;
+    border-radius: 5px;
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .takvimi-prayer-time-row.is-next {
+    border: 3px solid #000;
+    background: #eee;
+  }
+
+  .takvimi-prayer-time-name {
+    overflow: hidden;
+    color: #444;
+    font-size: 12px;
+    line-height: 1;
+    font-weight: 900;
+    text-transform: uppercase;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .takvimi-prayer-time-value {
+    color: #000;
+    font-size: 25px;
+    line-height: 0.9;
+    font-weight: 900;
+    white-space: nowrap;
+  }
+
+  .takvimi-weather-today {
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .takvimi-weather-days-panel {
+    min-height: 0;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 6px;
   }
 
   .takvimi-weather-now {
@@ -290,98 +420,6 @@
     white-space: nowrap;
   }
 
-  .takvimi-prayer-section {
-    min-height: 0;
-    display: grid;
-    grid-template-rows: minmax(0, 1fr) auto;
-    gap: 6px;
-    overflow: hidden;
-  }
-
-  .takvimi-prayers {
-    min-height: 0;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(0, 1fr));
-    gap: 6px;
-    overflow: hidden;
-  }
-
-  .takvimi-prayer {
-    min-height: 0;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-rows: auto minmax(0, 1fr);
-    align-items: end;
-    gap: 4px 6px;
-    padding: 7px 8px;
-    border: 2px solid #444;
-    border-radius: 7px;
-    background: #fff;
-    box-shadow: 3px 3px 0 #aaa;
-    overflow: hidden;
-  }
-
-  .takvimi-prayer.is-next {
-    border: 3px solid #000;
-    background: #eee;
-  }
-
-  .takvimi-prayer p {
-    grid-column: 1 / -1;
-    margin: 0;
-    overflow: hidden;
-    color: #444;
-    font-size: 14px;
-    line-height: 1.05;
-    font-weight: 800;
-  }
-
-  .takvimi-prayer strong {
-    display: block;
-    font-size: 28px;
-    line-height: 1;
-    font-weight: 900;
-  }
-
-  .takvimi-pill {
-    align-self: end;
-    justify-self: end;
-    padding: 2px 4px;
-    border: 2px solid #000;
-    border-radius: 4px;
-    font-size: 10px;
-    line-height: 1;
-    font-weight: 900;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  .takvimi-day-length {
-    min-height: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    padding-top: 5px;
-    border-top: 3px solid #000;
-    overflow: hidden;
-    font-size: 14px;
-    line-height: 1;
-    font-weight: 800;
-  }
-
-  .takvimi-day-length span {
-    color: #444;
-    text-transform: uppercase;
-  }
-
-  .takvimi-day-length strong {
-    font-size: 24px;
-    line-height: 1;
-    font-weight: 900;
-    white-space: nowrap;
-  }
 </style>
 
 <div class="layout takvimi-layout">
@@ -401,22 +439,95 @@
     </section>
 
     <section class="takvimi-main">
-      <article class="takvimi-panel takvimi-clock-panel">
-        <p class="takvimi-label">Ora aktuale</p>
-        <div class="takvimi-clock">{{ current_time }}</div>
+      <article class="takvimi-panel takvimi-downloads-panel">
+        <div class="takvimi-panel-head">
+          <p class="takvimi-label">Deluge</p>
+          <span class="takvimi-panel-meta">{{ downloads.active_count }}/{{ downloads.total_count }} aktive</span>
+        </div>
+
+        <div class="takvimi-download-speeds">
+          <div class="takvimi-speed">
+            <span>Poshtë</span>
+            <strong>{{ downloads.down_speed }}</strong>
+          </div>
+          <div class="takvimi-speed">
+            <span>Lart</span>
+            <strong>{{ downloads.up_speed }}</strong>
+          </div>
+        </div>
+
+        {% if downloads.items.size > 0 %}
+          <div class="takvimi-feed-list">
+            {% for item in downloads.items limit:2 %}
+              <div class="takvimi-feed-item">
+                <p class="takvimi-feed-title">{{ item.name }}</p>
+                <span class="takvimi-feed-subtitle">{{ item.state }} · {{ item.progress }}%</span>
+                <span class="takvimi-feed-extra">
+                  {% if item.eta == blank %}{{ item.down_speed }}{% else %}{{ item.down_speed }} · {{ item.eta }}{% endif %}
+                </span>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="takvimi-empty">
+            {% if downloads.is_configured %}
+              Asnjë shkarkim aktiv
+            {% else %}
+              Deluge nuk është konfiguruar
+            {% endif %}
+          </div>
+        {% endif %}
       </article>
 
-      <article class="takvimi-panel takvimi-next-panel">
-        <p class="takvimi-label">Namazi i radhës</p>
-        <strong class="takvimi-next-name">{{ next_prayer.name }}</strong>
-        <span class="takvimi-next-time">{{ next_prayer.time }}</span>
-        <div class="takvimi-countdown">
-          pas <strong>{{ next_prayer.time_until }}</strong>
+      <article class="takvimi-panel takvimi-media-panel">
+        <div class="takvimi-panel-head">
+          <p class="takvimi-label">Plex i ri</p>
+          <span class="takvimi-panel-meta">
+            {% if media.status == "stale" %}cache{% else %}{{ media.status }}{% endif %}
+          </span>
+        </div>
+
+        {% if media.items.size > 0 %}
+          <div class="takvimi-feed-list">
+            {% for item in media.items limit:3 %}
+              <div class="takvimi-feed-item">
+                <p class="takvimi-feed-title">{{ item.title }}</p>
+                <span class="takvimi-feed-subtitle">
+                  {% if item.subtitle == blank %}{{ item.type }}{% else %}{{ item.subtitle }}{% endif %}
+                </span>
+                <span class="takvimi-feed-extra">{{ item.added_at }}</span>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="takvimi-empty">
+            {% if media.is_configured %}
+              Nuk ka media të reja
+            {% else %}
+              Plex nuk është konfiguruar
+            {% endif %}
+          </div>
+        {% endif %}
+      </article>
+
+      <article class="takvimi-panel takvimi-prayer-times-panel">
+        <div class="takvimi-panel-head">
+          <p class="takvimi-label">Kohët e namazit</p>
+          <span class="takvimi-panel-meta">Gjilan</span>
+        </div>
+
+        <div class="takvimi-prayer-times-list">
+          {% for prayer in prayers limit:6 %}
+            <div class="takvimi-prayer-time-row {% if prayer.is_next %}is-next{% endif %}">
+              <span class="takvimi-prayer-time-name">{{ prayer.name }}</span>
+              <strong class="takvimi-prayer-time-value">{{ prayer.time }}</strong>
+            </div>
+          {% endfor %}
         </div>
       </article>
     </section>
 
-    <section class="takvimi-panel takvimi-weather">
+    <section class="takvimi-panel takvimi-weather-today">
       <div class="takvimi-weather-now">
         <strong class="takvimi-temp">{% if weather.temperature_c == nil %}--{% else %}{{ weather.temperature_c }}{% endif %}°C</strong>
         <span class="takvimi-condition">
@@ -437,37 +548,18 @@
           {% endfor %}
         </div>
       </div>
-
-      <div class="takvimi-forecast-group">
-        <p class="takvimi-forecast-title">Ditët në vijim</p>
-        <div class="takvimi-forecast takvimi-forecast--days">
-          {% for item in weather.upcoming_days limit:4 %}
-            <div class="takvimi-forecast-item">
-              <span>{{ item.day }}</span>
-              <strong>{% if item.temperature_c == nil %}--{% else %}{{ item.temperature_c }}{% endif %}°</strong>
-              <em>{{ item.condition }}</em>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
     </section>
 
-    <section class="takvimi-prayer-section">
-      <div class="takvimi-prayers">
-        {% for prayer in prayers limit:6 %}
-          <article class="takvimi-prayer {% if prayer.is_next %}is-next{% endif %}">
-            <p>{{ prayer.name }}</p>
-            <strong>{{ prayer.time }}</strong>
-            {% if prayer.is_next %}
-              <span class="takvimi-pill">radhës</span>
-            {% endif %}
-          </article>
+    <section class="takvimi-panel takvimi-weather-days-panel">
+      <p class="takvimi-label">Ditët në vijim</p>
+      <div class="takvimi-forecast takvimi-forecast--days">
+        {% for item in weather.upcoming_days limit:4 %}
+          <div class="takvimi-forecast-item">
+            <span>{{ item.day }}</span>
+            <strong>{% if item.temperature_c == nil %}--{% else %}{{ item.temperature_c }}{% endif %}°</strong>
+            <em>{{ item.condition }}</em>
+          </div>
         {% endfor %}
-      </div>
-
-      <div class="takvimi-day-length">
-        <span>Gjatësia e ditës</span>
-        <strong>{{ day_length }}</strong>
       </div>
     </section>
   </div>

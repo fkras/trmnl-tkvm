@@ -25,6 +25,8 @@ export async function POST() {
       status: result.status,
       prayerCount: dashboardData.prayers.length,
       forecastCount: dashboardData.weather.forecast.length,
+      downloadCount: dashboardData.downloads.items.length,
+      mediaCount: dashboardData.media.items.length,
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unexpected TRMNL push error";

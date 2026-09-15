@@ -68,6 +68,10 @@ The full dashboard payload includes dates, current time, next prayer, prayer tim
 Portainer environment:
 
 - `TRMNL_WEBHOOK_URL`: generated TRMNL Private Plugin Webhook URL. Keep this secret.
+- `DELUGE_URL`: Deluge Web UI base URL, for example `http://host.docker.internal:8112` or `http://deluge:8112` when both services share a Docker network.
+- `DELUGE_PASSWORD`: Deluge Web UI password.
+- `PLEX_URL`: Plex Media Server base URL, for example `http://host.docker.internal:32400` or a LAN URL reachable from the container.
+- `PLEX_TOKEN`: Plex token used for local server API requests. Keep this secret.
 - `TRMNL_PUSH_INTERVAL`: automatic push interval in seconds, default `300`.
 - `RENDERER_HOST_PORT`: renderer host port, default `3101`.
 - `TRMNL_CACHE_TTL_MS`: renderer PNG cache lifetime in milliseconds, default `60000`.
@@ -106,6 +110,27 @@ Successful response:
 If `TRMNL_WEBHOOK_URL` is missing, the endpoint returns `503` and does not expose a webhook URL.
 
 Automatic pushes are handled by the `trmnl-pusher` Compose service. It calls `POST http://takvimi:3000/api/trmnl/push` inside the Docker network every `TRMNL_PUSH_INTERVAL` seconds, so it does not use nginx or public DNS. The default 5-minute interval matches the default TRMNL Private Plugin Webhook limit of 12 requests per hour.
+
+The Private Plugin payload now also includes Deluge download status and newly added Plex media:
+
+```json
+{
+  "merge_variables": {
+    "downloads": {
+      "active_count": 1,
+      "total_count": 4,
+      "down_speed": "2.4 MB/s",
+      "up_speed": "18 KB/s",
+      "items": []
+    },
+    "media": {
+      "items": []
+    }
+  }
+}
+```
+
+The React `/trmnl` screen still receives these values but does not render them yet. The visible TRMNL X change is in `trmnl/plugin-markup.html`, where the old current-time panel is replaced by Deluge and Plex panels. Plex and Deluge results are cached server-side; when either service is temporarily unreachable, the dashboard falls back to stale cache when available.
 
 Renderer manual refresh:
 

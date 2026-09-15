@@ -1,4 +1,6 @@
 import { getPrayerForToday } from "@/lib/prayer";
+import { getDelugeDashboardData, type DelugeDashboardData } from "@/lib/deluge";
+import { getPlexDashboardData, type PlexDashboardData } from "@/lib/plex";
 import { buildPrayerSchedule } from "@/lib/takvimi";
 import { getWeatherData } from "@/lib/weather";
 
@@ -47,6 +49,8 @@ export type TrmnlDashboardData = {
     forecast: TrmnlWeatherForecastItem[];
     upcoming_days: TrmnlWeatherDayItem[];
   };
+  downloads: DelugeDashboardData;
+  media: PlexDashboardData;
 };
 
 const WEATHER_LABELS_SQ: Record<string, string> = {
@@ -76,13 +80,15 @@ function toAlbanianWeatherLabel(label: string): string {
 }
 
 export async function getTrmnlDashboardData(now = new Date()): Promise<TrmnlDashboardData> {
-  const [{ data: prayerData }, weatherResult] = await Promise.all([
+  const [{ data: prayerData }, weatherResult, downloadsResult, mediaResult] = await Promise.all([
     getPrayerForToday(),
     getWeatherData().catch((error) => {
       const message = error instanceof Error ? error.message : "Unexpected weather error";
       console.warn(`Unable to load TRMNL weather data: ${message}`);
       return null;
     }),
+    getDelugeDashboardData(),
+    getPlexDashboardData(),
   ]);
   const schedule = buildPrayerSchedule(prayerData, now);
   const weather = weatherResult?.data;
@@ -129,5 +135,7 @@ export async function getTrmnlDashboardData(now = new Date()): Promise<TrmnlDash
           icon: day.weatherIcon,
         })) ?? [],
     },
+    downloads: downloadsResult.data,
+    media: mediaResult.data,
   };
 }
