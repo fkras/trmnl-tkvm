@@ -26,6 +26,10 @@ export async function POST() {
       prayerCount: dashboardData.prayers.length,
       forecastCount: dashboardData.weather.forecast.length,
       downloadCount: dashboardData.downloads.items.length,
+      delugeStatus: dashboardData.downloads.status,
+      delugeUpdatedAt: dashboardData.downloads.updated_at,
+      delugeActiveCount: dashboardData.downloads.active_count,
+      delugeTotalCount: dashboardData.downloads.total_count,
       mediaCount: dashboardData.media.items.length,
     });
   } catch (error) {

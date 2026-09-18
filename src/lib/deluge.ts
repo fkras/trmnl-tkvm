@@ -167,7 +167,15 @@ function isActiveTorrent(item: DelugeTorrent): boolean {
   const downSpeed = toNumberValue(item.download_payload_rate);
   const upSpeed = toNumberValue(item.upload_payload_rate);
 
-  return state === "downloading" || state === "seeding" || downSpeed > 0 || upSpeed > 0;
+  return state === "downloading" || downSpeed > 0 || upSpeed > 0;
+}
+
+function getActivityScore(item: DelugeTorrent): number {
+  const state = toStringValue(item.state).toLowerCase();
+  const statePriority = state === "downloading" ? 3 : state === "seeding" ? 2 : 1;
+  const transferRate = toNumberValue(item.download_payload_rate) + toNumberValue(item.upload_payload_rate);
+
+  return statePriority * 1_000_000_000 + transferRate;
 }
 
 function toDownloadItem(item: DelugeTorrent): DelugeDownloadItem | null {
@@ -222,7 +230,9 @@ async function fetchDelugeData(): Promise<DelugeDashboardData> {
   const update = await delugeRpc<DelugeUpdateUiResult>("web.update_ui", [keys, {}], login.cookie);
   const torrents = Object.values(update.result.torrents ?? {});
   const activeTorrents = torrents.filter(isActiveTorrent);
-  const visibleTorrents = activeTorrents.length > 0 ? activeTorrents : torrents;
+  const visibleTorrents = [...(activeTorrents.length > 0 ? activeTorrents : torrents)].sort(
+    (left, right) => getActivityScore(right) - getActivityScore(left),
+  );
   const items = visibleTorrents
     .map((item) => toDownloadItem(item))
     .filter((item): item is DelugeDownloadItem => item !== null)

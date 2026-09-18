@@ -28,7 +28,7 @@
     min-height: 0;
     overflow: hidden;
     display: grid;
-    grid-template-rows: 22% 42% 17% minmax(0, 1fr);
+    grid-template-rows: 48% 23% minmax(0, 1fr);
     gap: 10px;
     padding: 12px;
     background: #fff;
@@ -37,72 +37,10 @@
     border-radius: 8px;
   }
 
-  .takvimi-header {
-    min-height: 0;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 10px;
-    padding-bottom: 8px;
-    border-bottom: 3px solid #000;
-    overflow: hidden;
-  }
-
-  .takvimi-kicker {
-    margin: 0 0 5px;
-    color: #444;
-    font-size: 15px;
-    line-height: 1;
-    font-weight: 800;
-    text-transform: uppercase;
-  }
-
-  .takvimi-city {
-    margin: 0;
-    font-size: 52px;
-    line-height: 0.9;
-    font-weight: 900;
-  }
-
-  .takvimi-date,
-  .takvimi-hijri {
-    margin: 4px 0 0;
-    font-size: 16px;
-    line-height: 1.12;
-    font-weight: 700;
-  }
-
-  .takvimi-rendered {
-    align-self: start;
-    min-width: 105px;
-    padding: 8px 10px;
-    border: 3px solid #000;
-    border-radius: 8px;
-    background: #fafafa;
-    box-shadow: 4px 4px 0 #777;
-    text-align: right;
-  }
-
-  .takvimi-rendered span {
-    display: block;
-    color: #444;
-    font-size: 12px;
-    line-height: 1;
-    font-weight: 800;
-    text-transform: uppercase;
-  }
-
-  .takvimi-rendered strong {
-    display: block;
-    margin-top: 3px;
-    font-size: 30px;
-    line-height: 1;
-    font-weight: 900;
-  }
-
   .takvimi-main {
     min-height: 0;
     display: grid;
-    grid-template-columns: minmax(0, 1.12fr) minmax(0, 1.1fr) minmax(0, 0.78fr);
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 0.9fr) minmax(0, 1.2fr);
     gap: 8px;
     overflow: hidden;
   }
@@ -266,11 +204,11 @@
   .takvimi-prayer-time-row {
     min-height: 0;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: 24px minmax(0, 1fr) auto;
     align-items: center;
     gap: 8px;
-    padding: 4px 7px;
-    border: 2px solid #444;
+    padding: 6px 7px;
+    border: 1px solid #444;
     border-radius: 5px;
     background: #fff;
     overflow: hidden;
@@ -281,10 +219,27 @@
     background: #eee;
   }
 
+  .takvimi-prayer-icon,
+  .takvimi-current-weather-icon,
+  .takvimi-forecast-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    width: 100%;
+  }
+
+  .takvimi-prayer-icon svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+    stroke-width: 2.3;
+  }
+
   .takvimi-prayer-time-name {
     overflow: hidden;
     color: #444;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1;
     font-weight: 900;
     text-transform: uppercase;
@@ -294,16 +249,17 @@
 
   .takvimi-prayer-time-value {
     color: #000;
-    font-size: 25px;
+    font-size: 36px;
     line-height: 0.9;
     font-weight: 900;
     white-space: nowrap;
+    letter-spacing: 3px;
   }
 
   .takvimi-weather-today {
     min-height: 0;
     display: grid;
-    grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 0.42fr) minmax(0, 1.5fr);
     gap: 8px;
   }
 
@@ -317,12 +273,25 @@
   .takvimi-weather-now {
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
+    gap: 22px;
     overflow: hidden;
+    padding-left: 30px;
+  }
+  .takvimi-current-weather-icon {
+    display: inline-block;
+  }
+  .takvimi-current-weather-icon svg {
+    display: block;
+    width: 46px;
+    height: 46px;
+    stroke-width: 2.1;
   }
 
   .takvimi-temp {
     white-space: nowrap;
+    display: inline-block;
+    margin-right: 30px;
     font-size: 36px;
     line-height: 1;
     font-weight: 900;
@@ -331,18 +300,9 @@
   .takvimi-condition {
     overflow: hidden;
     color: #444;
-    font-size: 18px;
+    font-size: 13px;
     line-height: 1.05;
     font-weight: 800;
-  }
-
-  .takvimi-location {
-    display: block;
-    margin-top: 2px;
-    color: #000;
-    font-size: 12px;
-    line-height: 1;
-    font-weight: 700;
   }
 
   .takvimi-forecast {
@@ -398,7 +358,7 @@
 
   .takvimi-forecast-item span {
     color: #444;
-    font-size: 11px;
+    font-size: 14px;
     line-height: 1;
     font-weight: 800;
   }
@@ -407,158 +367,554 @@
     font-size: 17px;
     line-height: 1;
     font-weight: 900;
+    font-size: 36px;
   }
 
   .takvimi-forecast-item em {
-    display: block;
-    overflow: hidden;
-    color: #444;
-    font-size: 9px;
-    line-height: 1;
-    font-style: normal;
-    font-weight: 700;
-    white-space: nowrap;
+    display: none;
   }
 
-</style>
+  .takvimi-forecast-icon {
+    margin-top: 3px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
 
+  .takvimi-forecast-icon svg {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: -4px 0 -18px;
+    stroke-width: 2.2;
+  }
+  .celsius-sign {
+    font-style: normal;
+    margin-left: -8px;
+  }
+</style>
 <div class="layout takvimi-layout">
   <div class="takvimi-screen">
-    <section class="takvimi-header">
-      <div>
-        <p class="takvimi-kicker">{{ title }}</p>
-        <h1 class="takvimi-city">{{ city }}</h1>
-        <p class="takvimi-date">{{ gregorian_date }}</p>
-        <p class="takvimi-hijri">{{ hijri_date }}</p>
-      </div>
-
-      <div class="takvimi-rendered">
-        <span>Ora</span>
-        <strong>{{ rendered_time }}</strong>
-      </div>
-    </section>
-
     <section class="takvimi-main">
       <article class="takvimi-panel takvimi-downloads-panel">
         <div class="takvimi-panel-head">
           <p class="takvimi-label">Deluge</p>
-          <span class="takvimi-panel-meta">{{ downloads.active_count }}/{{ downloads.total_count }} aktive</span>
+          <span class="takvimi-panel-meta">
+            {{ downloads.active_count }} / {{ downloads.total_count }} aktive
+          </span>
         </div>
-
         <div class="takvimi-download-speeds">
           <div class="takvimi-speed">
             <span>Poshtë</span>
-            <strong>{{ downloads.down_speed }}</strong>
+            <strong> {{ downloads.down_speed }} </strong>
           </div>
           <div class="takvimi-speed">
             <span>Lart</span>
-            <strong>{{ downloads.up_speed }}</strong>
+            <strong> {{ downloads.up_speed }} </strong>
           </div>
         </div>
-
         {% if downloads.items.size > 0 %}
-          <div class="takvimi-feed-list">
-            {% for item in downloads.items limit:2 %}
-              <div class="takvimi-feed-item">
-                <p class="takvimi-feed-title">{{ item.name }}</p>
-                <span class="takvimi-feed-subtitle">{{ item.state }} · {{ item.progress }}%</span>
-                <span class="takvimi-feed-extra">
-                  {% if item.eta == blank %}{{ item.down_speed }}{% else %}{{ item.down_speed }} · {{ item.eta }}{% endif %}
-                </span>
-              </div>
-            {% endfor %}
+        <div class="takvimi-feed-list">
+          {% for item in downloads.items limit:2 %}
+          <div class="takvimi-feed-item">
+            <p class="takvimi-feed-title">{{ item.name }}</p>
+            <span class="takvimi-feed-subtitle">
+              {{ item.state }} · {{ item.progress }} %
+            </span>
+            <span class="takvimi-feed-extra">
+              {% if item.eta == blank %} {{ item.down_speed }} {% else %} {{
+              item.down_speed }} · {{ item.eta }} {% endif %}
+            </span>
           </div>
+          {% endfor %}
+        </div>
         {% else %}
-          <div class="takvimi-empty">
-            {% if downloads.is_configured %}
-              Asnjë shkarkim aktiv
-            {% else %}
-              Deluge nuk është konfiguruar
-            {% endif %}
-          </div>
+        <div class="takvimi-empty">
+          {% if downloads.is_configured %} Asnjë shkarkim aktiv {% else %}
+          Deluge nuk është konfiguruar {% endif %}
+        </div>
         {% endif %}
       </article>
-
       <article class="takvimi-panel takvimi-media-panel">
         <div class="takvimi-panel-head">
-          <p class="takvimi-label">Plex i ri</p>
+          <p class="takvimi-label">Plex</p>
           <span class="takvimi-panel-meta">
-            {% if media.status == "stale" %}cache{% else %}{{ media.status }}{% endif %}
+            {% if media.status == "stale" %} cache {% else %} {{ media.status }}
+            {% endif %}
           </span>
         </div>
-
         {% if media.items.size > 0 %}
-          <div class="takvimi-feed-list">
-            {% for item in media.items limit:3 %}
-              <div class="takvimi-feed-item">
-                <p class="takvimi-feed-title">{{ item.title }}</p>
-                <span class="takvimi-feed-subtitle">
-                  {% if item.subtitle == blank %}{{ item.type }}{% else %}{{ item.subtitle }}{% endif %}
-                </span>
-                <span class="takvimi-feed-extra">{{ item.added_at }}</span>
-              </div>
-            {% endfor %}
+        <div class="takvimi-feed-list">
+          {% for item in media.items limit:3 %}
+          <div class="takvimi-feed-item">
+            <p class="takvimi-feed-title">{{ item.title }}</p>
+            <span class="takvimi-feed-subtitle">
+              {% if item.subtitle == blank %} {{ item.type }} {% else %} {{
+              item.subtitle }} {% endif %}
+            </span>
+            <span class="takvimi-feed-extra"> {{ item.added_at }} </span>
           </div>
+          {% endfor %}
+        </div>
         {% else %}
-          <div class="takvimi-empty">
-            {% if media.is_configured %}
-              Nuk ka media të reja
-            {% else %}
-              Plex nuk është konfiguruar
-            {% endif %}
-          </div>
+        <div class="takvimi-empty">
+          {% if media.is_configured %} Nuk ka media të reja {% else %} Plex nuk
+          është konfiguruar {% endif %}
+        </div>
         {% endif %}
       </article>
-
       <article class="takvimi-panel takvimi-prayer-times-panel">
         <div class="takvimi-panel-head">
           <p class="takvimi-label">Kohët e namazit</p>
-          <span class="takvimi-panel-meta">Gjilan</span>
         </div>
-
         <div class="takvimi-prayer-times-list">
           {% for prayer in prayers limit:6 %}
-            <div class="takvimi-prayer-time-row {% if prayer.is_next %}is-next{% endif %}">
-              <span class="takvimi-prayer-time-name">{{ prayer.name }}</span>
-              <strong class="takvimi-prayer-time-value">{{ prayer.time }}</strong>
-            </div>
+          <div
+            class="takvimi-prayer-time-row {% if prayer.is_next %}is-next{% endif %}"
+          >
+            <span class="takvimi-prayer-icon" aria-hidden="true">
+              {% if prayer.key == "imsaku" %}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"
+                ></path>
+              </svg>
+              {% elsif prayer.key == "lindja" %}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 2v8"></path>
+                <path d="m4.93 10.93 1.41 1.41"></path>
+                <path d="M2 18h2"></path>
+                <path d="M20 18h2"></path>
+                <path d="m19.07 10.93-1.41 1.41"></path>
+                <path d="M22 22H2"></path>
+                <path d="m8 6 4-4 4 4"></path>
+                <path d="M16 18a4 4 0 0 0-8 0"></path>
+              </svg>
+              {% elsif prayer.key == "dreka" %}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2"></path>
+                <path d="M12 20v2"></path>
+                <path d="m4.93 4.93 1.41 1.41"></path>
+                <path d="m17.66 17.66 1.41 1.41"></path>
+                <path d="M2 12h2"></path>
+                <path d="M20 12h2"></path>
+                <path d="m6.34 17.66-1.41 1.41"></path>
+                <path d="m19.07 4.93-1.41 1.41"></path>
+              </svg>
+              {% elsif prayer.key == "ikindia" %}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 2v2"></path>
+                <path d="m4.93 4.93 1.41 1.41"></path>
+                <path d="M20 12h2"></path>
+                <path d="m19.07 4.93-1.41 1.41"></path>
+                <path d="M15.947 12.65a4 4 0 0 0-5.925-4.128"></path>
+                <path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z"></path>
+              </svg>
+              {% elsif prayer.key == "akshami" %}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 10V2"></path>
+                <path d="m4.93 10.93 1.41 1.41"></path>
+                <path d="M2 18h2"></path>
+                <path d="M20 18h2"></path>
+                <path d="m19.07 10.93-1.41 1.41"></path>
+                <path d="M22 22H2"></path>
+                <path d="m16 6-4 4-4-4"></path>
+                <path d="M16 18a4 4 0 0 0-8 0"></path>
+              </svg>
+              {% else %}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"
+                ></path>
+              </svg>
+              {% endif %}
+            </span>
+            <span class="takvimi-prayer-time-name"> {{ prayer.name }} </span>
+            <strong class="takvimi-prayer-time-value">
+              {{ prayer.time }}
+            </strong>
+          </div>
           {% endfor %}
         </div>
       </article>
     </section>
-
     <section class="takvimi-panel takvimi-weather-today">
       <div class="takvimi-weather-now">
-        <strong class="takvimi-temp">{% if weather.temperature_c == nil %}--{% else %}{{ weather.temperature_c }}{% endif %}°C</strong>
-        <span class="takvimi-condition">
-          {{ weather.condition }}
-          <span class="takvimi-location">{{ weather.location }}</span>
+        <strong class="takvimi-temp">
+          {% if weather.temperature_c == nil %} -- {% else %} {{
+          weather.temperature_c }} {% endif %}
+
+          <i class="celsius-sign">°C</i>
+        </strong>
+        <span class="takvimi-current-weather-icon" aria-hidden="true">
+          {% if weather.icon == "sun" %}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+          {% elsif weather.icon == "partly-cloudy" %}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 2v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="M20 12h2"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+            <path d="M15.947 12.65a4 4 0 0 0-5.925-4.128"></path>
+            <path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z"></path>
+          </svg>
+          {% elsif weather.icon == "rain" or weather.icon == "drizzle" %}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"
+            ></path>
+            <path d="M16 14v6"></path>
+            <path d="M8 14v6"></path>
+            <path d="M12 16v6"></path>
+          </svg>
+          {% elsif weather.icon == "snow" %}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"
+            ></path>
+            <path d="M8 15h.01"></path>
+            <path d="M8 19h.01"></path>
+            <path d="M12 17h.01"></path>
+            <path d="M12 21h.01"></path>
+            <path d="M16 15h.01"></path>
+            <path d="M16 19h.01"></path>
+          </svg>
+          {% elsif weather.icon == "thunder" %}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M4 14a7 7 0 1 1 13.5-2h.5a4 4 0 0 1 0 8h-2"></path>
+            <path d="m13 12-3 5h4l-3 5"></path>
+          </svg>
+          {% else %}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M17.5 19a4.5 4.5 0 0 0 0-9h-1.8A7 7 0 1 0 4 16.9"></path>
+            <path d="M5 19h13"></path>
+          </svg>
+          {% endif %}
         </span>
       </div>
-
       <div class="takvimi-forecast-group">
         <p class="takvimi-forecast-title">Sot</p>
         <div class="takvimi-forecast takvimi-forecast--today">
           {% for item in weather.forecast limit:6 %}
-            <div class="takvimi-forecast-item">
-              <span>{{ item.time }}</span>
-              <strong>{% if item.temperature_c == nil %}--{% else %}{{ item.temperature_c }}{% endif %}°</strong>
-              <em>{{ item.condition }}</em>
-            </div>
+          <div class="takvimi-forecast-item">
+            <span> {{ item.time }} </span>
+            <strong>
+              {% if item.temperature_c == nil %} -- {% else %} {{
+              item.temperature_c }} {% endif %}
+              <i class="celsius-sign">°</i>
+            </strong>
+            <span class="takvimi-forecast-icon" aria-hidden="true">
+              {% if item.icon == "sun" %}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2"></path>
+                <path d="M12 20v2"></path>
+                <path d="m4.93 4.93 1.41 1.41"></path>
+                <path d="m17.66 17.66 1.41 1.41"></path>
+                <path d="M2 12h2"></path>
+                <path d="M20 12h2"></path>
+                <path d="m6.34 17.66-1.41 1.41"></path>
+                <path d="m19.07 4.93-1.41 1.41"></path>
+              </svg>
+              {% elsif item.icon == "partly-cloudy" %}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 2v2"></path>
+                <path d="m4.93 4.93 1.41 1.41"></path>
+                <path d="M20 12h2"></path>
+                <path d="m19.07 4.93-1.41 1.41"></path>
+                <path d="M15.947 12.65a4 4 0 0 0-5.925-4.128"></path>
+                <path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z"></path>
+              </svg>
+              {% elsif item.icon == "rain" or item.icon == "drizzle" %}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"
+                ></path>
+                <path d="M16 14v6"></path>
+                <path d="M8 14v6"></path>
+                <path d="M12 16v6"></path>
+              </svg>
+              {% elsif item.icon == "snow" %}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"
+                ></path>
+                <path d="M8 15h.01"></path>
+                <path d="M8 19h.01"></path>
+                <path d="M12 17h.01"></path>
+                <path d="M12 21h.01"></path>
+                <path d="M16 15h.01"></path>
+                <path d="M16 19h.01"></path>
+              </svg>
+              {% elsif item.icon == "thunder" %}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M4 14a7 7 0 1 1 13.5-2h.5a4 4 0 0 1 0 8h-2"></path>
+                <path d="m13 12-3 5h4l-3 5"></path>
+              </svg>
+              {% else %}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M17.5 19a4.5 4.5 0 0 0 0-9h-1.8A7 7 0 1 0 4 16.9"
+                ></path>
+                <path d="M5 19h13"></path>
+              </svg>
+              {% endif %}
+            </span>
+            <em> {{ item.condition }} </em>
+          </div>
           {% endfor %}
         </div>
       </div>
     </section>
-
     <section class="takvimi-panel takvimi-weather-days-panel">
       <p class="takvimi-label">Ditët në vijim</p>
       <div class="takvimi-forecast takvimi-forecast--days">
         {% for item in weather.upcoming_days limit:4 %}
-          <div class="takvimi-forecast-item">
-            <span>{{ item.day }}</span>
-            <strong>{% if item.temperature_c == nil %}--{% else %}{{ item.temperature_c }}{% endif %}°</strong>
-            <em>{{ item.condition }}</em>
-          </div>
+        <div class="takvimi-forecast-item">
+          <span> {{ item.day }} </span>
+          <strong>
+            {% if item.temperature_c == nil %} -- {% else %} {{
+            item.temperature_c }} {% endif %}
+
+            <i class="celsius-sign">°</i>
+          </strong>
+          <span class="takvimi-forecast-icon" aria-hidden="true">
+            {% if item.icon == "sun" %}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+            {% elsif item.icon == "partly-cloudy" %}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M12 2v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="M20 12h2"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+              <path d="M15.947 12.65a4 4 0 0 0-5.925-4.128"></path>
+              <path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z"></path>
+            </svg>
+            {% elsif item.icon == "rain" or item.icon == "drizzle" %}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"
+              ></path>
+              <path d="M16 14v6"></path>
+              <path d="M8 14v6"></path>
+              <path d="M12 16v6"></path>
+            </svg>
+            {% elsif item.icon == "snow" %}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"
+              ></path>
+              <path d="M8 15h.01"></path>
+              <path d="M8 19h.01"></path>
+              <path d="M12 17h.01"></path>
+              <path d="M12 21h.01"></path>
+              <path d="M16 15h.01"></path>
+              <path d="M16 19h.01"></path>
+            </svg>
+            {% elsif item.icon == "thunder" %}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M4 14a7 7 0 1 1 13.5-2h.5a4 4 0 0 1 0 8h-2"></path>
+              <path d="m13 12-3 5h4l-3 5"></path>
+            </svg>
+            {% else %}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M17.5 19a4.5 4.5 0 0 0 0-9h-1.8A7 7 0 1 0 4 16.9"></path>
+              <path d="M5 19h13"></path>
+            </svg>
+            {% endif %}
+          </span>
+          <em> {{ item.condition }} </em>
+        </div>
         {% endfor %}
       </div>
     </section>
